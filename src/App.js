@@ -5,8 +5,8 @@ function App() {
   return (
     <div className="App">
       <h1>Kafka Messaging App</h1>
-      <Producer />
-      <Consumer />
+      {/* <Producer /> */}
+      {/* <Consumer /> */}
     </div>
   );
 }
