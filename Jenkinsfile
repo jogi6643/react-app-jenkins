@@ -1,5 +1,5 @@
 pipeline {
-    agent any   // Use any agent for the pipeline
+    agent any
 
     environment {
         IMAGE_NAME = "react-app"
@@ -37,9 +37,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh 'docker build --no-cache -t $IMAGE_NAME .'
-                }
+                sh 'docker build --no-cache -t $IMAGE_NAME .'
             }
         }
 
