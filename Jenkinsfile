@@ -1,12 +1,16 @@
 pipeline {
-  agent any
+   agent {
+    docker {
+      image 'node:18'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
 
   environment {
     IMAGE_NAME = "react-app"
     CONTAINER_NAME = "my-react-app"
     PORT = "3000"
   }
-
   stages {
 
     stage('Checkout Code') {
