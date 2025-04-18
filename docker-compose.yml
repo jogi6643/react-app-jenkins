@@ -2,7 +2,7 @@ version: '3.8'
 services:
   jenkins:
     image: jenkins/jenkins:lts
-    container_name: jenkins
+    container_name: jenkins1
     user: root
     ports:
       - "8080:8080"
@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: react-app
+    container_name: react-app1
     ports:
       - "3000:80"
     depends_on:
