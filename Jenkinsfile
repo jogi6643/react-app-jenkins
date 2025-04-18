@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'react-app'
+    }
+
     stages {
         stage('Clone Repo') {
             steps {
@@ -10,14 +14,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t react-app .'
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker rm -f react-app || true'
-                sh 'docker run -d -p 3000:80 --name react-app react-app'
+                sh 'docker run -d -p 3000:80 --name react-app $IMAGE_NAME'
             }
         }
     }
