@@ -3,24 +3,28 @@
 
     WORKDIR /app
     
+    # Copy only package files first for better caching
     COPY package*.json ./
     RUN npm install
+    
+    # Copy the rest of the app source code
     COPY . .
     
+    # Build the React app for production
     RUN npm run build
     
     # ---------- Serve Stage ----------
     FROM nginx:alpine
     
-    # Remove default Nginx static assets
+    # Remove the default Nginx static assets
     RUN rm -rf /usr/share/nginx/html/*
     
-    # Copy built app from builder stage
+    # Copy built React app from the builder stage
     COPY --from=builder /app/build /usr/share/nginx/html
     
-    # Expose port 80 for the container
+    # Expose port 80 (already mapped to 3000 in docker-compose)
     EXPOSE 80
     
-    # Start Nginx
+    # Start Nginx in foreground
     CMD ["nginx", "-g", "daemon off;"]
     
